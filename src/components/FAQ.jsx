@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const NumberInfo = () => {
+const FAQ = () => {
     const { classes } = useStyles();
     return (
         <Accordion
@@ -53,18 +53,31 @@ const NumberInfo = () => {
                 </Accordion.Panel>
             </Accordion.Item>
             <Accordion.Item value="privacy">
-            <Accordion.Control>Wie werden die Bilder verarbeitet?</Accordion.Control>
-            <Accordion.Panel>
-                <Box >
-                    Das aufgenommene Bild wird <b>ausschließlich</b> auf deinem lokalen Gerät verarbeitet und nicht an einen Server weitergeleitet.
-                    Um das zu überprüfen, kann der gesammte Sourcecode dieser Webseite <Anchor href={"https://github.com/Nachwahl/geldscheine"}>in diesem GitHub Repository</Anchor> eingesehen werden.
-                </Box>
+                <Accordion.Control>Wie werden die Bilder verarbeitet?</Accordion.Control>
+                <Accordion.Panel>
+                    <Box>
+                        Das aufgenommene Bild wird <b>ausschließlich</b> auf deinem lokalen Gerät verarbeitet und nicht
+                        an einen Server weitergeleitet.
+                        Um das zu überprüfen, kann der gesamte Sourcecode dieser Webseite <Anchor
+                        href={"https://github.com/Nachwahl/geldscheine"}>in diesem GitHub Repository</Anchor> eingesehen
+                        werden.
+                    </Box>
 
-            </Accordion.Panel>
-        </Accordion.Item>
+                </Accordion.Panel>
+            </Accordion.Item>
+            <Accordion.Item value="notWorking">
+                <Accordion.Control>Es funktioniert etwas nicht so, wie es sollte?</Accordion.Control>
+                <Accordion.Panel>
+                    <Box>
+                        Sollte ein Fehler auftreten, schreibe bitte eine DM auf Twitter an <Anchor href={"https://twitter.com/Nachwahl"}>@Nachwahl</Anchor> oder erstelle ein <Anchor href={"https://github.com/Nachwahl/geldscheine/issues"}>Issue auf GitHub</Anchor>.
+                        Auch <Anchor href={"https://github.com/Nachwahl/geldscheine/pulls"}>Pull Requests</Anchor> sind willkommen.
+                    </Box>
+
+                </Accordion.Panel>
+            </Accordion.Item>
 
         </Accordion>
     )
 }
 
-export default NumberInfo;
+export default FAQ;

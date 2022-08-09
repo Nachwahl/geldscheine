@@ -12,7 +12,7 @@ const Failed = () => {
                 style={{ height: '200px', width: '300px' }}
             />
             <Text size={"lg"} weight={500} align={"center"}>
-                Es wurde kein Text im Bild erkannt oder der Prüfcode ist nicht korrekt. Bitte versuche es erneut.
+                Es wurde kein Text im Bild erkannt. Bitte versuche es erneut.
             </Text>
         </Box>
     )
