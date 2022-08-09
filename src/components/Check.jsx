@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
-import {Box, Container, createStyles, Text, Card, Button, SegmentedControl} from "@mantine/core";
+import {Box, Container, createStyles, Text, Card, Button, SegmentedControl, Alert} from "@mantine/core";
 import {showNotification} from "@mantine/notifications";
-import {IconCamera} from "@tabler/icons";
+import {IconAlertCircle, IconCamera} from "@tabler/icons";
 import Tesseract, {createWorker} from 'tesseract.js';
 import Failed from "./Failed.jsx";
 import Result from "./Result.jsx";
 import ManualSearch from "./ManualSearch.jsx";
 import Upload from "./Upload.jsx";
+import {useOs} from "@mantine/hooks";
 
 
 const useStyles = createStyles((theme) => ({
@@ -26,8 +27,10 @@ const Check = () => {
     const [stream, setStream] = React.useState(null);
     const [progress, setProgress] = React.useState(0);
     const [text, setText] = React.useState(null);
+    const os = useOs();
+    const [mode, setMode] = React.useState(os === "ios" ? "upload" : "camera");
 
-    const [mode, setMode] = React.useState("camera");
+
 
 
     const enableVideo = async () => {
@@ -117,6 +120,10 @@ const Check = () => {
             />
 
             {mode === "camera" && <div>
+
+                {os === "ios" && <Alert icon={<IconAlertCircle size={16} />} title="Achtung!" color="red" mb={"md"}>
+                    Auf iOS Geräten kann es zu Problemen mit der Liveansicht der Kamera kommen. Bitte verwende stattdessen die "Bild hochladen"-Funktion und mache über den Menüpunkt "Foto aufnehmen" ein Bild deines Scheines.
+                </Alert>}
                 {!videoActive ? <Box sx={(theme) => ({
                     border: "3px dashed " + theme.colors.gray[3],
                     borderRadius: theme.radius.md,
