@@ -13,10 +13,12 @@ const Result = ({code}) => {
 
     code.replace(" ", "");
 
-    let regex2 = /[A-B,0-9]{12}/gm
 
-    if(code.match(regex2).length > 0) {
-        code = code.match(regex2)
+    let regex2 = /[A-Z0-9]{12}/gm
+
+    if(code.match(regex2)) {
+        console.log(code.match(regex2))
+        code = code.match(regex2)[0]
     }
 
     let numbers = code.slice(2);
