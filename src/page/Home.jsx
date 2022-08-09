@@ -25,7 +25,7 @@ const Home = () => {
                 <Text mb={"sm"}>
                     Der YouTuber <Anchor href="https://www.youtube.com/c/SeoxYT">Seox</Anchor> hat am 8. August 2022 ein <b>Video veröffentlicht</b>, in dem er <b>50 mal einen 5€ Geldschein</b> in Berlin verteilt, um danach herauszufinden, welchen Weg diese Geldscheine gehen.
                 </Text>
-                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ZznpOPjFPr8"
+                <iframe width="560" style={{maxWidth: "80vw"}} height="315" src="https://www.youtube-nocookie.com/embed/ZznpOPjFPr8"
                         title="YouTube video player" frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen></iframe>
