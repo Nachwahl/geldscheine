@@ -123,7 +123,7 @@ const NotFound = ({code}) => {
                 style={{ height: '200px', width: '300px' }}
             />
             <Text size={"lg"} weight={500}>
-                Der Geldschein wurde erkannt, der Prüfcode <b>{code}</b> ist aber nicht einer der gesuchten. Trotzdem ein kurzer Fun Fact zu deinem Schein: Der Schein wurde von <i>{printer?.name}</i> in <span
+                Der Geldschein wurde erkannt, der Prüfcode <b>{code}</b> ist aber nicht einer der Gesuchten. Trotzdem ein kurzer Fun Fact zu deinem Schein: Der Schein wurde von <i>{printer?.name}</i> in <span
                 className={`fi fi-${printer?.country}`}></span> {getCountryName(printer?.country)} gedruckt.
             </Text>
         </Box>
