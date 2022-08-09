@@ -13,6 +13,8 @@ const Result = ({code}) => {
 
     if(!regex.test(code)) {
         return <Failed />
+    } else {
+        alert(code);
     }
 
 
