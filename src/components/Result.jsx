@@ -17,15 +17,14 @@ const Result = ({code}) => {
     let regex2 = /[A-Z0-9]{12}/gm
 
     if(code.match(regex2)) {
-        console.log(code.match(regex2))
         code = code.match(regex2)[0]
     }
 
     let numbers = code.slice(2);
     console.log(numbers)
 
-    numbers.replace("D", "0");
-    numbers.replace("O", "0");
+    numbers = numbers.replaceAll("D", "0");
+    numbers = numbers.replaceAll("O", "0");
 
     console.log(numbers)
 
