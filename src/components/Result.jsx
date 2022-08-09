@@ -12,11 +12,9 @@ const Result = ({code}) => {
 
 
     if(!regex.test(code)) {
-        return <Failed />
-    } else {
         alert(code);
+        return <Failed />
     }
-
 
     let c = code.match(regex)[0]
 
