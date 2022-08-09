@@ -6,6 +6,7 @@ import Tesseract from 'tesseract.js';
 import Failed from "./Failed.jsx";
 import Result from "./Result.jsx";
 import ManualSearch from "./ManualSearch.jsx";
+import Upload from "./Upload.jsx";
 
 
 
@@ -61,9 +62,7 @@ const Check = () => {
     useEffect(() => {
         if (playbackRef.current) {
             playbackRef.current.srcObject = stream;
-            playbackRef.current.onloadedmetadata = () => {
-                playbackRef.current.play();
-            };
+            playbackRef.current.play();
         }
 
     }, [stream, videoActive])
@@ -106,12 +105,14 @@ const Check = () => {
             <SegmentedControl
                 data={[
                     { label: 'Per Kamera scannen', value: 'camera' },
+                    { label: 'Bild hochladen', value: 'upload' },
                     { label: 'Manuelle Eingabe', value: 'manual' },
                 ]}
                 fullWidth
                 mb={"md"}
                 value={mode}
                 onChange={setMode}
+                sx={{overflowX: "scroll"}}
             />
 
             {mode === "camera" && <div>
@@ -133,7 +134,7 @@ const Check = () => {
                         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
                         position: "relative"
                     })}>
-                        <video ref={playbackRef} width="100%" height="300" autoPlay style={{objectFit: "cover"}}
+                        <video ref={playbackRef} width="100%" height="300" autoPlay muted loop style={{objectFit: "cover"}}
                                className={classes.videoPlayback}></video>
                         <Box sx={(theme) => ({
                             position: "absolute", bottom: 0, left: "50%", transform: "translate(-50%, 0%)",
@@ -191,6 +192,7 @@ const Check = () => {
                 }
             </div>}
             {mode === "manual" && <ManualSearch />}
+            {mode === "upload" && <Upload />}
         </Card>
     );
 }
