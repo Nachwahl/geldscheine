@@ -2,12 +2,11 @@ import React, {useEffect} from "react";
 import {Box, Container, createStyles, Text, Card, Button, SegmentedControl} from "@mantine/core";
 import {showNotification} from "@mantine/notifications";
 import {IconCamera} from "@tabler/icons";
-import Tesseract from 'tesseract.js';
+import Tesseract, {createWorker} from 'tesseract.js';
 import Failed from "./Failed.jsx";
 import Result from "./Result.jsx";
 import ManualSearch from "./ManualSearch.jsx";
 import Upload from "./Upload.jsx";
-
 
 
 const useStyles = createStyles((theme) => ({
@@ -33,7 +32,7 @@ const Check = () => {
 
     const enableVideo = async () => {
         let stream = await navigator.mediaDevices.getUserMedia({
-            video: {width: 400, height: 300,facingMode: 'environment'},
+            video: {width: 400, height: 300, facingMode: 'environment'},
             audio: false
         }).catch(err => {
             console.error(err);
@@ -69,26 +68,28 @@ const Check = () => {
 
     const updateProgress = (packet) => {
         console.log(packet)
-        if(packet.status === "recognizing text") {
+        if (packet.status === "recognizing text") {
             setProgress(Math.round(packet.progress * 100));
         }
     }
 
     const recognizeImage = async (img) => {
         console.log("go")
-        Tesseract.recognize(
-            img,
-            'eng',
-            { logger: updateProgress }
-        ).then(({ data: { text } }) => {
-            console.log(text)
-            if(text === "") {
-                setText("none");
-            } else {
-                setText(text);
-            }
+        const worker = createWorker()
 
-        })
+        await worker.load()
+        await worker.loadLanguage("eng")
+        await worker.initialize("eng")
+        const {
+            data: {text},
+        } = await worker.recognize(img)
+        console.log(text)
+        if (text === "") {
+            setText("none");
+        } else {
+            setText(text);
+        }
+
     }
 
     const reset = () => {
@@ -104,9 +105,9 @@ const Check = () => {
 
             <SegmentedControl
                 data={[
-                    { label: 'Per Kamera scannen', value: 'camera' },
-                    { label: 'Bild hochladen', value: 'upload' },
-                    { label: 'Manuelle Eingabe', value: 'manual' },
+                    {label: 'Per Kamera scannen', value: 'camera'},
+                    {label: 'Bild hochladen', value: 'upload'},
+                    {label: 'Manuelle Eingabe', value: 'manual'},
                 ]}
                 fullWidth
                 mb={"md"}
@@ -134,7 +135,8 @@ const Check = () => {
                         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
                         position: "relative"
                     })}>
-                        <video ref={playbackRef} width="100%" height="300" autoPlay muted loop style={{objectFit: "cover"}}
+                        <video ref={playbackRef} width="100%" height="300" autoPlay muted loop
+                               style={{objectFit: "cover"}}
                                className={classes.videoPlayback}></video>
                         <Box sx={(theme) => ({
                             position: "absolute", bottom: 0, left: "50%", transform: "translate(-50%, 0%)",
@@ -183,7 +185,7 @@ const Check = () => {
 
                 {
                     text && <Box>
-                        <Result code={text} />
+                        <Result code={text}/>
 
                         <Button variant={"light"} color={"red"} fullWidth onClick={reset}>
                             Erneut versuchen
@@ -191,8 +193,8 @@ const Check = () => {
                     </Box>
                 }
             </div>}
-            {mode === "manual" && <ManualSearch />}
-            {mode === "upload" && <Upload />}
+            {mode === "manual" && <ManualSearch/>}
+            {mode === "upload" && <Upload/>}
         </Card>
     );
 }

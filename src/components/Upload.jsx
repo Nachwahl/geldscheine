@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Box, Button, FileButton, Group, Progress, Table, Text, TextInput} from "@mantine/core";
 import {Player} from "@lottiefiles/react-lottie-player";
 import "flag-icons/css/flag-icons.min.css";
-import Tesseract from "tesseract.js";
+import Tesseract, {createWorker} from "tesseract.js";
 import {showNotification} from "@mantine/notifications";
 import Result from "./Result.jsx";
 import {compress, compressAccurately, filetoDataURL} from 'image-conversion';
@@ -25,20 +25,21 @@ const Upload = () => {
 
     const recognizeImage = async (img) => {
         console.log("go")
-        Tesseract.recognize(
-            img,
-            'eng',
-            {logger: updateProgress}
-        ).then(({data: {text}}) => {
-            console.log(text)
-            setLoading(false);
-            if (text === "") {
-                setText("none");
-            } else {
-                setText(text);
-            }
+        const worker = createWorker()
 
-        })
+        await worker.load()
+        await worker.loadLanguage("eng")
+        await worker.initialize("eng")
+        const {
+            data: {text},
+        } = await worker.recognize(img)
+        console.log(text)
+        setLoading(false)
+        if (text === "") {
+            setText("none");
+        } else {
+            setText(text);
+        }
     }
 
     const reset = () => {
