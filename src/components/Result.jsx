@@ -33,7 +33,6 @@ const Result = ({code}) => {
     console.log(code)
 
     if(!regex.test(code)) {
-        alert(code);
         return <Failed />
     }
 
